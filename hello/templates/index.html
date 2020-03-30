@@ -22,21 +22,21 @@
 pip install -U -r requirements.txt
 The repository has a script, process.py which lets us run on single images or directories of images. The blur detection method is highly dependent on the size of the image being processed. To get consistent scores we fix the image size to HD, to disable this use --variable-size. The script has options to,
 
-# run on a single image
-python process.py -i input_image.png
+<li># run on a single image</li>
+<li>python process.py -i input_image.png</li>
 
-# run on a directory of images
-python process.py -i input_directory/ 
+<li># run on a directory of images</li>
+<li>python process.py -i input_directory/ </li>
 
-# or both! 
-python process.py -i input_directory/ other_directory/ input_image.png
-. In addition to logging whether an image is blurry or not, we can also,
+<li># or both! </li>
+<li>python process.py -i input_directory/ other_directory/ input_image.png</li>
+<li>. In addition to logging whether an image is blurry or not, we can also,</li>
 
-# save this information to json
-python process.py -i input_directory/ -s results.json
+<li># save this information to json</li>
+<li>python process.py -i input_directory/ -s results.json</li>
 
-# display blur-map image
-python process.py -i input_directory/ -d
+<li># display blur-map image</li>
+<li>python process.py -i input_directory/ -d</li>
 </p>
       </ul>
     </div>
