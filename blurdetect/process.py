@@ -29,6 +29,7 @@ def parse_args():
 
 
 def find_images(image_paths, img_extensions=['.jpg', '.png', '.jpeg']):
+    print("input image path" + image_paths)
     img_extensions += [i.upper() for i in img_extensions]
 
     for path in image_paths:
