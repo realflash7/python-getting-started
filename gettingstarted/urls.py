@@ -5,6 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 import hello.views
+import blurdetect.views
 
 # To add a new path, first import the app:
 # import blog
@@ -19,5 +20,7 @@ urlpatterns = [
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
     path("fileupload/", hello.views.simple_upload, name="simple_upload"),
-    path("formupload/", hello.views.model_form_upload, name="model_form_upload")
+    path("formupload/", hello.views.model_form_upload, name="model_form_upload"),
+    path("blurdetect/", blurdetect.views.detect, name="detect"),
+    path("output/", blurdetect.views.output, name="script")
 ]

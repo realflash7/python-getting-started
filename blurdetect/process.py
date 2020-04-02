@@ -6,10 +6,13 @@ import json
 
 import cv2
 
-from blur_detection import estimate_blur
-from blur_detection import fix_image_size
-from blur_detection import pretty_blur_map
+from blurdetect.blur_detection import estimate_blur
+from blurdetect.blur_detection import fix_image_size
+from blurdetect.blur_detection import pretty_blur_map
 
+#import hello.views
+
+#import blurdetect.blur_detection.detect.fix_image_size
 
 def parse_args():
     parser = argparse.ArgumentParser(description='run blur detection on a single image')
@@ -43,25 +46,29 @@ def find_images(image_paths, img_extensions=['.jpg', '.png', '.jpeg']):
                 yield from path.rglob(f'*{img_ext}')
 
 
-if __name__ == '__main__':
-    assert sys.version_info >= (3, 6), sys.version_info
-    args = parse_args()
+def do_detection(in_images, in_save_path):
+    in_fix_size = True
+    in_verbose = True
+    in_threshold = 100.00
+    in_display = False
 
-    level = logging.DEBUG if args.verbose else logging.INFO
+    assert sys.version_info >= (3, 6), sys.version_info
+
+    level = logging.DEBUG if in_verbose else logging.INFO
     logging.basicConfig(level=level)
 
-    fix_size = not args.variable_size
-    logging.info(f'fix_size: {fix_size}')
+    fix_size = not in_fix_size
+    #logging.info(f'fix_size: {fix_size}')
 
-    if args.save_path is not None:
-        save_path = pathlib.Path(args.save_path)
+    if in_save_path is not None:
+        save_path = pathlib.Path(in_save_path)
         assert save_path.suffix == '.json', save_path.suffix
     else:
         save_path = None
 
     results = []
 
-    for image_path in find_images(args.images):
+    for image_path in find_images(in_images):
         image = cv2.imread(str(image_path))
         if image is None:
             logging.warning(f'warning! failed to read image from {image_path}; skipping!')
@@ -74,12 +81,12 @@ if __name__ == '__main__':
         else:
             logging.warning('not normalizing image size for consistent scoring!')
 
-        blur_map, score, blurry = estimate_blur(image, threshold=args.threshold)
+        blur_map, score, blurry = estimate_blur(image, threshold=in_threshold)
 
         logging.info(f'image_path: {image_path} score: {score} blurry: {blurry}')
         results.append({'input_path': str(image_path), 'score': score, 'blurry': blurry})
 
-        if args.display:
+        if in_display:
             cv2.imshow('input', image)
             cv2.imshow('result', pretty_blur_map(blur_map))
 
@@ -87,9 +94,13 @@ if __name__ == '__main__':
                 logging.info('exiting...')
                 exit()
 
+    save_path = None
+
     if save_path is not None:
         logging.info(f'saving json to {save_path}')
 
         with open(save_path, 'w') as result_file:
-            data = {'images': args.images, 'threshold': args.threshold, 'fix_size': fix_size, 'results': results}
+            data = {'images': in_images, 'threshold': in_threshold, 'fix_size': fix_size, 'results': results}
             json.dump(data, result_file, indent=4)
+
+    return results

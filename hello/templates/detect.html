@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Python button script
+        </title>
+    </head>
+    <body>
+	
+<button onclick="location.href='{% url 'script' %}'">Execute Script</button>
+<p>Check 1</p>
+        {% if data %}
+        
+        {{data | safe}}
+
+        {% endif %}
+<p>Check 2</p>
+        </body>
+</html>
