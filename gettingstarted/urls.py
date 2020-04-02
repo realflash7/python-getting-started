@@ -19,4 +19,5 @@ urlpatterns = [
     path("db/", hello.views.db, name="db"),
     path("admin/", admin.site.urls),
     path("fileupload/", hello.views.simple_upload, name="simple_upload"),
+    path("formupload/", hello.views.model_form_upload, name="model_form_upload")
 ]
