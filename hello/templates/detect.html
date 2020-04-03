@@ -5,15 +5,23 @@
             Python button script
         </title>
     </head>
+
     <body>
 	
-<button onclick="location.href='{% url 'script' %}'">Execute Script</button>
-<p>Check 1</p>
+<button onclick="location.href='{% url 'script' %}'" class="btn btn-primary">Execute Script</button>
+
+<p></p>
+
         {% if data %}
         
-        {{data | safe}}
+        <pre>
+            <code class="prettyprint">
+                {{data | safe}}
+            </code>
+        </pre>
 
         {% endif %}
-<p>Check 2</p>
+
+<p></p>
         </body>
 </html>

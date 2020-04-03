@@ -28,6 +28,21 @@ def output(request):
     print(out)
     return render(request,'detect.html',{'data':out2})
 
+def simple_upload(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'simple_upload.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    else:
+        out2 = do_detection('hazy.png', 'results.json')
+        print('Initial output - ')
+        print(out2)
+        return render(request, 'simple_upload.html',{'data':out2})
+
 def start_page(request):
     print("Start")
     return render(request, "bd.html")
