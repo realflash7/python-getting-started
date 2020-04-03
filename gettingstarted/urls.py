@@ -22,5 +22,7 @@ urlpatterns = [
     path("fileupload/", hello.views.simple_upload, name="simple_upload"),
     path("formupload/", hello.views.model_form_upload, name="model_form_upload"),
     path("blurdetect/", blurdetect.views.detect, name="detect"),
-    path("output/", blurdetect.views.output, name="script")
+    path("output/", blurdetect.views.output, name="script"),
+    path("bd/", blurdetect.views.start_page, name="start"),
+    path("bdupload/", blurdetect.views.bd_upload, name="upload")
 ]
