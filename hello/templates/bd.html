@@ -19,6 +19,7 @@
 
 <header class="navbar">
     <form action="/bdupload/" method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
         <div align="center">
             <label class="btn btn-default btn-file">
                 Browse <input type="file" name="image" style="display: none;">

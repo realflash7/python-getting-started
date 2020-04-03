@@ -1,16 +1,38 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blur Detection Demo</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
 
-{% load static %}
+<body>
 
-{% block content %}
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="myfile">
-    <button type="submit">Upload</button>
-  </form>
+<div class = "container">
+    <div class = "starter-template">
+        <h1>Blur Detection Demo</h1>
+        <p class = "lead"> Try uploading an image to see the blur score </p>
+        <p> Blur detection using <a href="https://www.pyimagesearch.com/2015/09/07/blur-detection-with-opencv/" target="blank"> OpenCv </a> | Powered by Python, Django, OpenCV </p>
+        <p> By realflash - April, 2020 </p>
+    </div>
+</div>
 
-  {% if uploaded_file_url %}
-    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-  {% endif %}
+<header class="navbar">
+    <form method="post" enctype="multipart/form-data" >
+         {% csrf_token %}
+        <div align="center">
+            <label class="btn btn-default btn-file">
+                Browse <input type="file" name="myfile" style="display: none;">
+            </label>
+            <input type="submit" value="Upload your image" class="btn btn-primary">
 
-{% endblock %}
+            {% if uploaded_file_url %}
+                <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+            {% endif %}
+        </div>
+    </form>
+</header>
+
+</body>
+</html>
+
